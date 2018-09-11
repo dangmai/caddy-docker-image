@@ -1,0 +1,12 @@
+sudo: required
+services:
+  - docker
+env:
+  global:
+  - IMAGE_NAME=dangmai/caddy
+
+script:
+  - docker build --build-arg plugins=git,filemanager,cors,realip,expires,caches,cloudflare -f Dockerfile-no-stats --tag "$IMAGE_NAME" github.com/abiosoft/caddy-docker.git
+  - docker login -u "$REGISTRY_USER" -p "$REGISTRY_PASSWORD"
+  - docker tag "$IMAGE_NAME" "${IMAGE_NAME}:latest"
+  - docker push "${IMAGE_NAME}:latest"
