@@ -7,6 +7,6 @@ env:
 
 script:
   - docker build --build-arg plugins=git,filemanager,cors,realip,expires,cache,cloudflare -f Dockerfile-no-stats --tag "$IMAGE_NAME" github.com/abiosoft/caddy-docker.git
-  - docker login -u "$REGISTRY_USER" -p "$REGISTRY_PASSWORD"
+  - docker login -u ${REGISTRY_USER} -p ${REGISTRY_PASSWORD}
   - docker tag "$IMAGE_NAME" "${IMAGE_NAME}:latest"
   - docker push "${IMAGE_NAME}:latest"
